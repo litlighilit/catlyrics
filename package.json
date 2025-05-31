@@ -1,0 +1,28 @@
+{
+  "name": "getlyrics",
+  "version": "0.1.0",
+  "description": "get lyrics of a song",
+  "keywords": [
+    "song",
+    "util",
+    "daily"
+  ],
+  "homepage": "https://github.com/litlighilit/getLyrics#readme",
+  "bugs": {
+    "url": "https://github.com/litlighilit/getLyrics/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litlighilit/getLyrics.git"
+  },
+  "license": "MIT",
+  "author": "litlighilit",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "node-html-parser": "^7.0.1"
+  }
+}
