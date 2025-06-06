@@ -1,5 +1,5 @@
 {
-  "name": "getlyrics",
+  "name": "catlyrics",
   "version": "0.1.1",
   "description": "get lyrics of a song",
   "keywords": [
@@ -10,20 +10,20 @@
     "cli",
     "lyrics"
   ],
-  "homepage": "https://github.com/litlighilit/getLyrics#readme",
+  "homepage": "https://github.com/litlighilit/catlyrics#readme",
   "bugs": {
-    "url": "https://github.com/litlighilit/getLyrics/issues"
+    "url": "https://github.com/litlighilit/catlyrics/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/litlighilit/getLyrics.git"
+    "url": "git+https://github.com/litlighilit/catlyrics.git"
   },
   "license": "MIT",
   "author": "litlighilit",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "getLyrics": "main.js"
+    "catlyrics": "main.js"
   },
   "scripts": {},
   "dependencies": {

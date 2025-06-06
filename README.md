@@ -5,5 +5,5 @@
 ## CLI
 
 ```shell
-$ getLyrics SONG_NAME
+$ catlyrics SONG_NAME
 ```
