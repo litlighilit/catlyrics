@@ -1,4 +1,4 @@
-
+#!/usr/bin/env node
 import { getFirstMatchNameAndLyrics } from "./index.js"
 
 import { argv } from 'node:process';

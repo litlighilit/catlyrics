@@ -1,6 +1,6 @@
 {
   "name": "getlyrics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "get lyrics of a song",
   "keywords": [
     "song",
@@ -19,8 +19,8 @@
   "author": "litlighilit",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "test"
+  "bin": {
+    "getLyrics": "main.js"
   },
   "scripts": {},
   "dependencies": {
