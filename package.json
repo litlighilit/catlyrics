@@ -3,9 +3,12 @@
   "version": "0.1.1",
   "description": "get lyrics of a song",
   "keywords": [
-    "song",
+    "songs",
+    "music",
     "util",
-    "daily"
+    "daily",
+    "cli",
+    "lyrics"
   ],
   "homepage": "https://github.com/litlighilit/getLyrics#readme",
   "bugs": {
