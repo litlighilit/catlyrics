@@ -18,10 +18,11 @@
   "license": "MIT",
   "author": "litlighilit",
   "type": "module",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "test"
   },
+  "scripts": {},
   "dependencies": {
     "node-html-parser": "^7.0.1"
   }

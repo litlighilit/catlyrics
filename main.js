@@ -1,5 +1,5 @@
 
-import { getFirstMatchNameAndLyrics } from "./util.js"
+import { getFirstMatchNameAndLyrics } from "./index.js"
 
 import { argv } from 'node:process';
 
