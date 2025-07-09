@@ -5,11 +5,30 @@ import { argv } from 'node:process';
 
 const args = argv.slice(2);
 
-const songname = args.length !== 0 ? args[0] : 'One Last Kiss';
+const getitemOrDefault = (arr, idx, defval) => 
+  idx < arr.length ? arr[idx] : defval
+;
+
+
+let songname = getitemOrDefault(args, 0, 'One Last Kiss');
+
+let optStr;
+if (songname[0]=='-') {
+  optStr = songname;
+  songname = args[1];
+} else {
+  optStr = getitemOrDefault(args, 1, "")
+}
+
+let plainText = optStr == "-t" || optStr == "--text";
+
 
 getFirstMatchNameAndLyrics(songname).then(nameAndLyrics => {
   console.log(nameAndLyrics.name);
-  console.log(nameAndLyrics.lyrics
-    //.join('\n')
-  );
+
+  let ls = nameAndLyrics.lyrics;
+  if (plainText) {
+    console.log('');  // print a newline
+    console.log(ls.join('\n'));
+  } else console.log(ls);
 }).catch( e => console.error(e) );
