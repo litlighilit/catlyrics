@@ -1,7 +1,7 @@
 //const { DOMParser } = require('xmldom');
 //import { DOMParser } from 'dom-parser';
 import { parse } from "node-html-parser";
-import { AssertionError } from "node:assert";
+import assert from "node:assert";
 
 const BaseUrl = 'https://lyrics.net.cn'
 function chkString(s) {
@@ -14,7 +14,7 @@ function chkString(s) {
 function htmlStructChanged(dest) {
     const msg = `fail to extract ${dest} from page, need to update used CSS selector`
     //console.assert(false, );
-    throw new AssertionError(msg);
+    throw new assert.AssertionError(msg);
 }
 
 class NotImplementedError extends TypeError {}
@@ -116,14 +116,31 @@ async function* yieldNameAndSubpath(songname) {
 
 /**
  * @param {string} songname
+ * @param {integer} n: starting from 1
+ */
+export
+async function getNstMatchNameAndLyrics(songname, n) {
+    let item;
+    let itor = yieldNameAndSubpath(songname);
+    assert(n>0, "starting from 1");
+    for (let ord = 0; ord < n; ord++) {
+      item = await itor.next();
+      if (item.done) {
+	if (ord == 0)
+          htmlStructChanged('lyrics href');
+	throw new RangeError(`only ${ord} lyrics found, but expected ${n}`)
+      }
+    }
+    const val = item.value;
+    return mkRes(val.name, await getFromSubpath(val.subpath));
+}
+
+/**
+ * @param {string} songname
  */
 export
 async function getFirstMatchNameAndLyrics(songname) {
-    const item = await yieldNameAndSubpath(songname).next();
-    if (item.done)
-        htmlStructChanged('lyrics href');
-    const val = item.value;
-    return mkRes(val.name, await getFromSubpath(val.subpath));
+    return await getNstMatchNameAndLyrics(songname, 1);
 }
 
 /**
