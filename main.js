@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getFirstMatchNameAndLyrics } from "./index.js"
+import { getFirstMatchNameAndLyrics, yieldNameAndSubpath } from "./index.js"
 
 import { argv } from 'node:process';
 
@@ -21,14 +21,21 @@ if (songname[0]=='-') {
 }
 
 let plainText = optStr == "-t" || optStr == "--text";
+let listNames = optStr == "-l" || optStr == "--list";
 
+if (listNames) {
+  for await (let nAndP of yieldNameAndSubpath(songname)){
+    console.log(nAndP.name);
+  }
+} else {
+  getFirstMatchNameAndLyrics(songname).then(nameAndLyrics => {
+    console.log(nameAndLyrics.name);
+  
+    let ls = nameAndLyrics.lyrics;
+    if (plainText) {
+      console.log('');  // print a newline
+      console.log(ls.join('\n'));
+    } else console.log(ls);
+  }).catch( e => console.error(e) );
+}
 
-getFirstMatchNameAndLyrics(songname).then(nameAndLyrics => {
-  console.log(nameAndLyrics.name);
-
-  let ls = nameAndLyrics.lyrics;
-  if (plainText) {
-    console.log('');  // print a newline
-    console.log(ls.join('\n'));
-  } else console.log(ls);
-}).catch( e => console.error(e) );
