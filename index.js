@@ -93,11 +93,12 @@ async function* yieldNameAndSubpath(songname) {
 
     const results = document.querySelectorAll('.search_title');
     let destPreDiv = null;
-    results.forEach(div => {
+    for (const div of results) {
         if (div.textContent.includes("歌曲名")) {
             destPreDiv = div;
+	    break;
         }
-    });
+    }
     if (!destPreDiv) {
         notFound();
     }
