@@ -27,6 +27,7 @@
   },
   "scripts": {},
   "dependencies": {
+    "commander": "^14.0.2",
     "node-html-parser": "^7.0.1"
   }
 }
