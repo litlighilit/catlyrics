@@ -2,33 +2,27 @@
 import { getFirstMatchNameAndLyrics, getNstMatchNameAndLyrics, yieldNameAndSubpath } from "./index.js"
 
 import { argv } from 'node:process';
-import { program, Option } from 'commander';
+import { ArgumentParser } from 'argparse';
 
-function myParseInt(value, dummyPrevious) {
-  const parsedValue = parseInt(value, 10);
-  if (isNaN(parsedValue)) {
-    throw new commander.InvalidArgumentError('Not a number.');
-  }
-  return parsedValue;
-}
+const parser = new ArgumentParser({
+	prog: 'catlyrics'
+});
 
-let songname; // XXX: not work: = options.song;
 
-program
-  .option('-t, --text', 'output text instead of json')
-  .addOption(new Option('-n, --nth <number>', 'choose nth result', myParseInt, 1).conflicts('num'))
-  .option('-l, --list', 'list results')
-  .addOption(new Option('-N, --nums', 'list results with numbers').conflicts('nth').implies('list'))
-  .argument('[song]', 'song to search', 'One Last Kiss')
-  .action(sn => songname = sn)
-.parse()
+parser.add_argument('-t', '--text', {help: 'output text instead of json', action: 'store_true'})
+parser.add_argument('-n', '--nth', {type: 'int', help: 'choose nth result', default: 1})
+parser.add_argument('song', {help: 'song to search', default: 'One Last Kiss'})
 
-const options = program.opts();
+parser.add_argument('-l', '--list', {help: 'list all results', action: 'store_true'})
+parser.add_argument('-N', '--nums', {help: 'list all results with numbers', action: 'store_true'})
+
+const options = parser.parse_args()
 
 const plainText = options.text;
 const listNames = options.list;
 const listNamesWithNumbers = options.nums;
 const nth = options.nth;
+const songname = options.song;
 
 const waitForNameAndLyrics = it =>
   it.then(nameAndLyrics => {
@@ -41,7 +35,7 @@ const waitForNameAndLyrics = it =>
     } else console.log(ls);
   }).catch( e => console.error(e) );
 
-if (listNames) {
+if (listNames || listNamesWithNumbers) {
   let log = name => console.log(name);
   let num = 1;
   if (listNamesWithNumbers) log = name => {
